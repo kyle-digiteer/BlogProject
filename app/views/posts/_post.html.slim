@@ -26,6 +26,6 @@ div id="#{dom_id post}" class="bg-white p-4 mb-4 overflow-hidden"
     p.mt-4
       = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
     p.mt-4
-      = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
+      = link_to "Edit this post", edit_post_path(post), class: "text-indigo-600 hover:underline"
     p.mt-4
-      = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
+      = button_to "Delete this post", post , method: :delete, class: "text-indigo-600 hover:underline"
