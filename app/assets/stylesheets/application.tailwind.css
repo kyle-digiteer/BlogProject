@@ -11,3 +11,58 @@
 }
 
 */
+/* Add this to your application.css or an appropriate stylesheet */
+/* Add this to your application.css or an appropriate stylesheet */
+/* Hide the default checkbox */
+/* Hide the default checkbox */
+.toggle-checkbox {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Style for the label which represents the switch */
+.toggle-label {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 40px; /* Width of the switch */
+  height: 24px; /* Height of the switch */
+  background-color: #ccc; /* Background color when unchecked */
+  border-radius: 9999px; /* Fully rounded */
+  transition: background-color 0.4s; /* Smooth transition for color change */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add shadow effect */
+}
+
+/* Slider inside the switch */
+.toggle-slider {
+  width: 24px;
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #fff; /* Background color of the slider */
+  border-radius: 9999px; /* Fully rounded */
+  transition: transform 0.4s; /* Smooth transition for slider movement */
+}
+
+/* Move the slider when checked */
+.toggle-checkbox:checked + .toggle-label .toggle-slider {
+  transform: translateX(16px); /* Adjust this based on the size of the slider */
+}
+
+/* Change switch color when checked */
+.toggle-checkbox:checked + .toggle-label {
+  background-color: #3b82f6; /* Tailwind blue-600 or your desired color */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Add shadow effect when checked */
+}
+
+/* Optional: Customize the slider color when checked */
+.toggle-checkbox:checked + .toggle-label .toggle-slider {
+  background-color: #fff; /* Background color of the slider when checked */
+}
+.overflow-hidden {
+  overflow: hidden;
+}

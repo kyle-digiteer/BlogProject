@@ -1,7 +1,31 @@
-div id="#{dom_id post}"
-  p
-    strong Title:
-    =< post.title
-  p
-    strong Body:
-    =< post.body
+div id="#{dom_id post}" class="bg-white p-4 mb-4 overflow-hidden"
+  .flex.flex-col
+    .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
+      .p-4
+        .font-medium.text-gray-600.mb-2.break-words
+          | Title:
+          =< post.title
+      .p-4
+        .font-medium.text-gray-600.mb-2.truncate.w-100
+          | Body:
+          =< post.body
+      .p-4
+        .font-medium.text-gray-600.mb-2
+          | Published Date:
+        .text-gray-800
+          = post.published_date.strftime("%B %d, %Y")
+      .p-4
+        .font-medium.text-gray-600.mb-2
+          | Active:
+          =< post.is_active
+      .p-4
+        .font-medium.text-gray-600.mb-2
+          | Featured:
+          =< post.is_featured
+
+    p.mt-4
+      = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
+    p.mt-4
+      = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
+    p.mt-4
+      = link_to "Show this post", post, class: "text-indigo-600 hover:underline"
