@@ -1,0 +1,19 @@
+section.container.mx-auto.px-6.py-12
+  h1.text-4xl.font-extrabold.text-gray-800.mb-12 Featured
+
+  .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+    - @featured.each do |featured|
+      article.bg-white.p-4.rounded-lg.shadow-md.break-words(style="margin-bottom: 2rem; margin-right: 1rem; padding: 1rem")
+        h2.text-2xl.font-semibold.text-gray-900.hover:text-blue-700.transition-colors.mb-4 = featured.title
+        p.text-gray-700.mb-4 = featured.body
+        = link_to "View Featured", feed_path(featured), class: "text-blue-500 hover:underline"
+
+  h1.text-4xl.font-extrabold.text-gray-800.mt-16.mb-12 Your Feeds
+
+  .grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-8
+    - @feeds.each do |feed|
+      article.bg-white.p-4.rounded-lg.shadow-md.break-words(style="margin-bottom: 2rem; margin-right: 1rem; padding: 1rem")
+        h2.text-xl.font-semibold.text-gray-900.hover:text-blue-700.transition-colors.mb-4 =< feed.title
+        p.text-gray-700.mb-4(style="max-height: 4.5rem; overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;") = feed.body
+        
+        = link_to "View post", feed_path(feed), class: "text-blue-500 hover:underline"

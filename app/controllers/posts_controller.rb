@@ -1,8 +1,19 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
-
+  before_action :authenticate_user!, only: %i[index edit destroy]
+  #create another before_action that check if the user edits is his own posts and etc
   def index
     @posts = Post.all
+  end
+
+  def feeds
+    @feeds = Post.active.published
+    @featured = Post.featured
+  end
+
+  def feed_show
+    @feed = Post.find(params[:id])
+    @author = User.find(@feed.user_id)
   end
 
   # GET /posts/1 or /posts/1.json
@@ -19,7 +30,7 @@ class PostsController < ApplicationController
   # POST /posts or /posts.json
   def create
     @post = Post.new(post_params)
-    @post.user_id = current_user.id
+    @post.user_id = current_user.id # set post user id to current user id
 
     respond_to do |format|
       if @post.save
