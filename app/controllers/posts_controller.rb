@@ -1,9 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[index edit destroy]
-  #create another before_action that check if the user edits is his own posts and etc
+
+  before_action :check_if_belongs_to_user, only: %i[edit destroy]
+
   def index
-    @posts = Post.all
+    @posts = Post.where(user_id: current_user.id)
   end
 
   def feeds
@@ -71,5 +73,13 @@ class PostsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def post_params
     params.require(:post).permit(:title, :body, :is_active, :is_featured, :published_date)
+  end
+
+  def check_if_belongs_to_user
+    return if @post.belongs_to_user(current_user.id)
+
+    respond_to do |format|
+      format.html { redirect_to root_path, notice: "Can't Edit Post that is not yours" }
+    end
   end
 end

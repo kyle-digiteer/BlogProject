@@ -2,13 +2,14 @@
   - if notice
     p.text-green-500 = notice
 
-  h1.text-3xl.font-bold.mb-6 Posts
+  h1.text-3xl.font-bold.mb-6.text-shadow-md Posts
   = link_to "New post", new_post_path, class: "bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700"
 
   #posts.grid.grid-cols-1.gap-4.mt-4
     - @posts.each do |post|
       .bg-white.p-4.rounded-lg.shadow-md
         = render post
+  p = 
         
 
 
