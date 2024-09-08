@@ -1,11 +1,15 @@
 class PostsController < ApplicationController
+  include ActionView::RecordIdentifier
+
   before_action :set_post, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[index edit destroy]
 
   before_action :check_if_belongs_to_user, only: %i[edit destroy]
 
   def index
-    @posts = Post.where(user_id: current_user.id)
+    my_post = Post.where(user_id: current_user.id)
+    filtered = my_post.where('title LIKE ?', "%#{params[:filter]}%")
+    @pagy, @posts = pagy(filtered.all, items: 3)
   end
 
   def feeds
@@ -19,7 +23,9 @@ class PostsController < ApplicationController
   end
 
   # GET /posts/1 or /posts/1.json
-  def show; end
+  def show
+    @author = User.find(@post.user_id)
+  end
 
   # GET /posts/new
   def new
@@ -36,8 +42,17 @@ class PostsController < ApplicationController
 
     respond_to do |format|
       if @post.save
+        format.turbo_stream do
+          render turbo_stream: [
+            turbo_stream.update('new_posts', partial: 'posts/form', locals: { post: Post.new }),
+            turbo_stream.append('posts', partial: 'posts/post', locals: { post: @post })
+          ]
+        end
         format.html { redirect_to post_url(@post), notice: 'Post was successfully created.' }
       else
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.update('new_posts', partial: 'posts/form', locals: { post: @post })
+        end
         format.html { render :new, status: :unprocessable_entity }
       end
     end

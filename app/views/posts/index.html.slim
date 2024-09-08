@@ -2,14 +2,25 @@
   - if notice
     p.text-green-500 = notice
 
-  h1.text-3xl.font-bold.mb-6.text-shadow-md Posts
-  = link_to "New post", new_post_path, class: "bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700"
+  div.flex.justify-between.items-center.mb-6
+    h1.text-3xl.font-bold.text-shadow-md Create a Post
+    = link_to "New post", new_post_path, class: "bg-indigo-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-indigo-700"
 
+
+  #new_posts.grid.grid-cols-1.gap-4.mt-4
+    == render partial: 'posts/form', locals: { post: Post.new}
+
+  h1.text-3xl.font-bold.mb-6.text-shadow-md Posts
   #posts.grid.grid-cols-1.gap-4.mt-4
-    - @posts.each do |post|
-      .bg-white.p-4.rounded-lg.shadow-md
-        = render post
-  p = 
+    = turbo_frame_tag "posts" do 
+    = render @posts
+
+
+  .flex.mt-4
+    == pagy_nav(@pagy, link_extra: 'data-turbo-action="advance"')
+  
+  
+ 
         
 
 

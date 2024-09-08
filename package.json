@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "debounce": "^2.1.0",
     "tailwindcss-textshadow": "^2.1.3"
   }
 }
